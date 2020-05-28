@@ -1,0 +1,75 @@
+body {
+  min-height: 2000px;
+  padding-top: 1000px;
+}
+
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <%= link_to image_tag("u2klogo.png", alt: "USA2KENYA", width: "30px", height: "30px"), defined?(root_path) ? root_path : "#", class: "navbar-brand" %>
+    <%= link_to "usa2kenya", defined?(root_path) ? root_path : "#", class: "navbar-brand" %>
+    <p class="navbar-text">
+      <% if defined?(Devise) %>
+        <% if user_signed_in? %>
+      <%= link_to 'Orders Dashboard', orders_path %>  |  
+    <% else %>
+    <% end %>
+  <% end %>
+  <%= link_to 'Pricing', page_path('estimate') %>  |  
+  <%= link_to 'How It Works', page_path('how') %>  |  
+  <a href="https://usa2kenya.uservoice.com/">Customer Feedback</a> |  
+  <%= link_to 'Contact', page_path('contact') %> |  
+  <a href="http://blog.usa2kenya.com/">Blog</a> |  
+  </p>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="navbar-collapse collapse" id="navbar-collapse-1">
+    <ul class="nav navbar-nav">
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Products… <span class="caret"></span></a>
+      <ul class="dropdown-menu" role="menu">
+        <li><%= link_to 'iPhone', page_path('iphone') %></li>
+        <li><%= link_to 'iPad', page_path('ipad') %></li>
+        <li><%= link_to 'iPad Pro', page_path('ipad_pro') %></li>
+        <li><%= link_to 'Macbook Pro', page_path('macbook_pro') %></li>
+        <li><%= link_to 'Macbook Air', page_path('macbook_air') %></li>
+        <li><%= link_to 'Macbook', page_path('macbook') %></li>
+        <li><%= link_to 'Google Pixel', page_path('pixel') %></li>
+        <li><%= link_to 'Google Nexus', page_path('nexus') %></li>
+        <li><%= link_to 'Oculus Rift', page_path('oculus_rift') %></li>
+        <li><%= link_to 'Samsung Gear', page_path('gear') %></li>
+        <li><%= link_to 'Amazon Echo', page_path('echo') %></li>
+        <li><%= link_to 'Amazon Kindle', page_path('kindle') %></li>
+        <li><%= link_to 'Fire TV', page_path('fire') %></li>
+        <li><%= link_to 'Amazon Alexa', page_path('alexa') %></li>
+      </ul>
+      </li>
+      <% if defined?(Devise) %>
+        <% if user_signed_in? %>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.firstname %> <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><%= link_to "Edit Account", edit_user_registration_path %></li>
+              <li class="divider"></li>
+              <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+            </ul>
+          </li>
+        <% else %>
+          <li><%= link_to "Login", new_user_session_path %></li>
+          <li><%= link_to "Sign Up", new_user_registration_path %></li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div><!-- /.navbar-collapse -->
+</div>
+</nav>

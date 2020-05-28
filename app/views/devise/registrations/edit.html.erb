@@ -1,0 +1,23 @@
+<div class="container">
+  <h2>Edit User Account</h2>
+  <div class="row">
+    <div class="col-md-4">
+      <% if current_user.firstname.blank? || current_user.lastname.blank? || current_user.mobile.blank? || current_user.address.blank? || current_user.pp_id.blank? || current_user.location.blank? %>
+        <div class="alert alert-danger">
+          <h5>
+            <%= glyph 'warning-sign' %> We still need your personal information filled out!
+            <p> Without this, we can't deliver your orders to you yet.<br />
+            </p>
+          </h5>
+        </div>
+      <% else %>
+        <div class="alert alert-success">
+          We have all your required personal information! Thanks!
+        </div>
+      <% end %>
+      <%= render partial: "orders/address" %>
+  </div>
+    <div class="col-md-6">
+      <%= render partial: "devise/registrations/form" %>
+    </div>
+</div>

@@ -1,0 +1,100 @@
+<%= render partial: "devise/registrations/buttons" %>
+<title>USA2Kenya, the easiest way to order and receive packages in Kenya</title>
+<div class="page-header">
+  <!-- <h1><%=t ".title", default: "Get a free US address so you can shop anywhere online from Kenya", :class => "text&#45;center" %></h1> -->
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 text-left">
+        <h1 class="t-title">Easy Shipping to Kenya</h1>
+        <h3 class="t-title-ss">Shop US Discounts 
+          <br /> Order from 
+          <strong class="text-danger">{ </strong><strong id="place" class="t-title-xs"></strong><strong class="text-danger"> }</strong>
+          <br />
+          Just like a US resident
+        </h3>
+      <hr>
+        <!-- <h3> No more bugging aunties about packing suitcases  </h3> -->
+          <%= link_to "How It Works", page_path('how'), class: "btn btn-large btn-primary" %>
+          <%= link_to "Pricing", page_path('estimate'), class: "btn btn-large btn-primary" %>
+    </div>
+    <div class="col-md-4">
+      <%# <%= link_to image_tag("parcel.png", :alt => "Parcel"), {:class => "img-responsive", :alt => "image of a parcel"}  %>
+    </div>
+    <div class="col-md-4 alert alert-danger">
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: "form-horizontal form-user"}) do |f| %>
+        <%= devise_error_messages! %>
+
+        <!--  
+        
+        First and Last name fields for registration
+        
+        -->
+      <!-- <div class="form&#45;group"> -->
+      <!--   <%= f.label :firstname, "First Name", class: "control&#45;label col&#45;md&#45;4" %> -->
+      <!--   <div class="col&#45;md&#45;8"> -->
+      <!--     <%= f.text_field :firstname, class: "text&#45;field form&#45;control", html: {spellcheck: "false"} %> -->
+      <!--   </div> -->
+      <!-- </div> -->
+      <!--  -->
+      <!--  -->
+      <!-- <div class="form&#45;group"> -->
+      <!--   <%= f.label :lastname, "Last Name", class: "control&#45;label col&#45;md&#45;4" %> -->
+      <!--   <div class="col&#45;md&#45;8"> -->
+      <!--     <%= f.text_field :lastname, class: "text&#45;field form&#45;control", html: {spellcheck: "false"} %> -->
+      <!--   </div> -->
+      <!-- </div> -->
+
+      <div class="form-group">
+        <%= f.label :email, class: "control-label col-md-4" %>
+        <div class="col-md-8">
+          <%= f.email_field :email, class: "text-field form-control", html: {spellcheck: "false"} %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password, class: "control-label col-md-4" %>
+        <div class="col-md-8">
+          <%= f.password_field :password, class: "text-field form-control", html: {autocomplete: "off"} %>
+        </div>
+      </div>
+
+      <!--
+      Password confirmation
+      -->
+      <!-- <div class="form&#45;group"> -->
+      <!--   <%= f.label :password_confirmation, "Password Confirmation", class: "control&#45;label col&#45;md&#45;4" %> -->
+      <!--   <div class="col&#45;md&#45;8"> -->
+      <!--     <%= f.password_field :password_confirmation, class: "text&#45;field form&#45;control", html: {autocomplete: "off"} %> -->
+      <!--   </div> -->
+      <!-- </div> -->
+
+        <%= f.label :terms, 'Accept Terms of Service', class: "control-label col-md-4" %>
+        <div class="col-md-2">
+          <%= f.check_box :terms, as: :boolean, class: "checkbox form-control", html: {autocomplete: "off"}, :label => false, :inline_label => true %>
+      </div>
+          <%= f.button "Sign Up", class: "slide" %>
+
+      <%= f.hidden_field :unique_address, :value => ("KE" + rand(10 ** 6).to_s) %>
+
+
+        <div class="col-md-8">
+        <%= link_to "Forgot Password?", new_password_path(resource_name), class: "control-label col-md-6" %>
+      </div>
+    </div>
+    <% end %>
+    </div>
+    Masai Village photo <a href="https://www.flickr.com/photos/rcrhee/10470266044/">by Richard Rhee.</a>
+  </div>
+<script>
+      var text = ['Amazon', 'Apple', 'Ebay', 'Alibaba', 'ANYWHERE!'];
+        i = 0,
+        $strong = $('#place');
+    
+    setInterval(function ()
+    {
+        $strong.text(text[i++ % text.length]);
+    }, 1500);
+ </script>
+</div>
+<%= render partial: "devise/shared/bg" %>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- KISSmetrics tracking snippet -->
+<script type="text/javascript">var _kmq = _kmq || [];
+var _kmk = _kmk || 'cb791e79ffd03f08f914678b0d1a7e897bbffbef';
+function _kms(u){
+  setTimeout(function(){
+    var d = document, f = d.getElementsByTagName('script')[0],
+    s = d.createElement('script');
+    s.type = 'text/javascript'; s.async = true; s.src = u;
+    f.parentNode.insertBefore(s, f);
+  }, 1);
+}
+_kms('//i.kissmetrics.com/i.js');
+_kms('//doug1izaerwt3.cloudfront.net/' + _kmk + '.1.js');
+</script>
+  <!-- KISSmetrics -->
+  <%= favicon_link_tag 'favicon.ico' %>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <link href='//fonts.googleapis.com/css?family=Roboto:400,700,900' rel='stylesheet' type='text/css'>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    <%= csrf_meta_tags %>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="description" content="USA2Kenya: Get a free US address so you can shop anywhere online from Kenya" />
+<meta name="keywords" content="USA2Kenya, Kenya shopping, Nairobi shopping, Nairobi shipping, Kenya shipping, u2k, African shopping, Kenya ecommerce, Nairobi freight, Nairobi freight forwarding, Kenya freight forwarding" />
+    <%= analytics_init if Rails.env.production? %></head>
+<body>
+    <%= render partial: "elements/navbar" %>
+    <%= bootstrap_flash %>
+
+
+  <div class="container">
+    <%= yield %>
+
+  </div>
+    <%= render partial: "elements/footer" %>
+<!--Start of UserVoice widget Script-->
+<!-- UserVoice JavaScript SDK (only needed once on a page) -->
+<script>(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/YZuTYtmPi6Lj1Ig1I5MYg.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})()</script>
+
+<!-- A tab to launch the Classic Widget -->
+<script>
+UserVoice = window.UserVoice || [];
+UserVoice.push(['showTab', 'classic_widget', {
+  mode: 'full',
+  primary_color: '#cc6d00',
+  link_color: '#007dbf',
+  default_mode: 'support',
+  forum_id: 256318,
+  tab_label: 'Feedback & Support',
+  tab_color: '#d9230f',
+  tab_position: 'middle-left',
+  tab_inverted: false
+}]);
+</script>
+<!--End of UserVoice widget Script-->
+<!--Start of Zopim Live Chat Script-->
+<script type="text/javascript">
+window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
+d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
+_.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute('charset','utf-8');
+$.src='//v2.zopim.com/?28RKLuerGHTshtEjH3yxoNSsPI4TCL4L';z.t=+new Date;$.
+type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
+</script>
+<!--End of Zopim Live Chat Script-->
+
+</body>
+</html>

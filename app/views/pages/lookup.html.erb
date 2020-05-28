@@ -1,0 +1,33 @@
+<title>USA2Kenya | Lookup Order</title>
+<div class="jumobtron">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h1 class="bg-primary">Lookup Order</h1>
+        <hr>
+          <p>
+            To look up an order's status, please enter its tracking number to the right.
+            <hr>
+                </p>
+              </div>
+              <div class="col-md-8">
+                <p>
+                  <!-- <h3> -->
+                  <!--   <strong>Order #{order.tracking}</strong><br /> -->
+                  <!-- </h3> -->
+                  <!-- For multiple packages, sum their weights after calculating them individually, then multiply by $8. -->
+                  <!-- <br /> -->
+                  <!-- <i>Note these are only estimates and your final shipping fee can only be determined after we receive and process all your packages.</i> -->
+                  <hr>
+                  <h4>
+                    <%= form_tag order_path do  %>
+                      <%= text_field_tag :tracking %>
+                      <%= submit_tag "Lookup Order", :class => "btn btn-submit" %>
+                    <% end %>
+                  </h4>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+

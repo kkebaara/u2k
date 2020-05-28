@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>New order at USA2KENYA! Thank <%= @order.user.firstname %> <%= @order.user.lastname %>!</h1>
+    <p>
+      Alrighty, we got a new order!
+    </p>
+    <p>
+      <pre>
+
+        <% if @order.user.mobile.blank? || @order.user.pp_id.blank? || @order.user.address.blank? || @order.user.firstname.blank? || @order.user.lastname.blank? %>
+          Has User Completed Personal Information? <strong class="text-warning">NO</strong><br />
+        <% else %>
+          Has User Completed Personal Information? <strong class="text-success">YES</strong><br />
+        <% end %>
+        First Name:             <%= @order.user.firstname %><br />
+        Last Name:              <%= @order.user.lastname %><br />
+        Email:                  <%= @order.user.email %><br />
+        Unique U2K Code:        <%= @order.user.unique_address %><br />
+        Sign up date & time:    <%= @order.user.created_at %><br />
+        IP address mapped:      <a href="http://www.geoiptool.com/en/?IP=<%= @order.user.current_sign_in_ip%>"><%= @order.user.current_sign_in_ip%></a>
+      </pre>
+      <hr>
+      Here's the order information:
+      <pre>
+        Order ID:               <%= @order.id %><br />
+        Order Tracking #:       <%= @order.tracking %><br />
+        Order Description:      <%= @order.description %><br />
+        Order Value:            <%= @order.value %><br />
+        Created At:             <%= @order.created_at %>
+    </pre>
+    <hr>
+      Here's their personal information for reference:<br />
+      <pre>
+        User Mobile:            <%= @order.user.mobile %><br />
+        User Passport/Govt ID   <%= @order.user.pp_id %><br />
+        User Address            <%= @order.user.address %><br />
+        Pickup location:        <%= @order.user.location %><br />
+      </pre>
+    </p>
+  </body>
+</html>

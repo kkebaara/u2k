@@ -1,0 +1,61 @@
+<title>USA2Kenya | Thanks For <%= @order.id %> </title>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="bg-primary">Transaction #<%= @sale.guid %></h1>
+      <hr>
+        <p class="text-default col-md-6">
+          Thanks for paying for order ref. <em>#<%= @order.id %></em>, "<strong><%= @order.description %></strong>".
+          Your order is being processed to ensure as timely and safe a delivery as possible.
+          <br /><br />
+          <strong>If you haven't already, please make sure to finish filling out your personal information</strong>
+          and fill out the customs information for your order (description of items and value of items) as soon as possible. Without this information, your order could be delayed.
+          <br /><br />
+          Your receipt for transaction ID <strong>#<%= @sale.guid %></strong> will be sent to your email inbox: <strong><%= current_user.email %></strong>.
+          <br /><br />
+          Make sure to check your inbox for all updates with regards to the status of your order.
+          Any futher information that USA2KENYA may need to fulfill your order will be requested through email.
+        </p>
+      </div>
+    </div>
+  <hr>
+    <div class="row">
+    <div class="col-md-8">
+      Order Reference #<br />
+      <h2><%= @order.id %></h2>
+    </div>
+    <div class="col-md-4">
+      Order Date<br />
+      <h2><%= @order.created_at.strftime("%B %d, %Y") %></h2>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th class="col-md-4">Description</th>
+          <th>Value</th>
+          <th>Tracking</th>
+          <th>Fee</th>
+        </tr>
+      </thead>
+      <tbody>
+        <td class="col-md-4"><%= @order.description %>
+        <td><%= number_to_currency(@order.value) %>
+        <td><%= @order.tracking %>
+        <td><strong><%= number_to_currency(@order.fee) %></strong>
+      </tbody>
+    </table>
+    <hr>
+    <div class="col-md-2 pull-right">
+      Subtotal:  <strong><%= number_to_currency(@order.fee) %></strong>
+      <br /><hr>
+      Surcharge: <strong>$0.00</strong>
+      <hr><br /><br />
+        Total
+        <br />
+        <h1><strong><%= number_to_currency(@order.fee) %></strong></h1>
+    </div>
+  </div>
+  </div>

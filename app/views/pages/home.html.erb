@@ -1,0 +1,102 @@
+<title>USA2Kenya | Reliable & affordable shipping to Kenya for online shoppers | Free USA address for Kenya</title>
+<div class="jumbotron">
+  <div class="container">
+    <div class="row">
+      <h3>
+        Get a free US address so you can shop anywhere online as a Kenyan, today.
+      </h3>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <!--   First column stuff       -->
+        <% if defined?(Devise) %>
+          <% if user_signed_in? %>
+          Do something else if they're signed in.
+      <% end %>
+
+      <% else %>
+          <h2>Sign up</h2>
+
+        <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+          <%= devise_error_messages! %>
+
+        <div><%= f.label :email %><br />
+          <%= f.email_field :email %></div>
+
+        <div><%= f.label :password %><br />
+          <%= f.password_field :password %></div>
+
+        <div><%= f.label :password_confirmation %><br />
+          <%= f.password_field :password_confirmation %></div>
+
+        <div><%= f.submit "Sign up" %></div>
+      <% end %>
+      <% end %>
+
+        <%# <%= render "links" %>
+        <ul class="nav nav-tabs" style="margin-bottom: 15px;">
+          <li class="active"><a href="#the-problem" data-toggle="tab">The Problem</a></li>
+          <li><a href="#how-it-works" data-toggle="tab">How It Works</a></li>
+          <li><a href="#estimator" data-toggle="tab">Pricing</a></li>
+          <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            Dropdown <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="#dropdown1" data-toggle="tab">Action</a></li>
+            <li class="divider"></li>
+            <li><a href="#dropdown2" data-toggle="tab">Another action</a></li>
+          </ul>
+          </li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+          <div class="tab-pane fade active in" id="home">
+            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+          </div>
+          <div class="tab-pane fade" id="profile">
+            <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.</p>
+          </div>
+          <div class="tab-pane fade" id="dropdown1">
+            <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork.</p>
+          </div>
+          <div class="tab-pane fade" id="dropdown2">
+            <p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <!--   Second column stuff       -->
+        <div class="span8 welcome-image">
+
+
+          <div id="myCarousel"
+            class="carousel slide">
+            <!-- Carousel items -->
+            <div class="carousel-inner">
+              <div class="active item">
+                <div class="well">
+                  Almost no one ships to you.
+                </div>
+                <%= link_to image_tag("amazon1.png", :alt => "Amazon sucks at this too"), {:class => "img-responsive", :alt => "Responsive image"}  %>
+              </div>
+              <div class="item">
+                <a href="/users/sign_up"><img src="/pictures/2.png"> </a>
+              </div>
+              <div class="item">
+                <a href="/users/sign_up"><img src="/pictures/3.png"> </a>
+              </div>
+              <div class="item">
+                <a href="/users/sign_up"><img src="/pictures/4.png"> </a>
+              </div>
+              <div class="item">
+                <a href="/users/sign_up"><img src="/pictures/WordcloudInsight.png"> </a>
+              </div>
+            </div>
+            <!-- Carousel nav -->
+            <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+            <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

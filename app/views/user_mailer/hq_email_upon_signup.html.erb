@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>New user signed up at USA2KENYA! Welcome <%= @user.firstname %> <%= @user.lastname %>!</h1>
+    <p>
+      Alrighty, we got a new customer signed up!
+    </p>
+    <p>
+      Here's their information for reference:<br />
+      <pre>
+
+        First Name:             <%= @user.firstname %><br />
+        Last Name:              <%= @user.lastname %><br />
+        Email:                  <%= @user.email %><br />
+        Unique U2K Code:        <%= @user.unique_address %><br />
+        Sign up date & time:    <%= @user.created_at %><br />
+
+      </pre>
+    </p>
+  </body>
+</html>

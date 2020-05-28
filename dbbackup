@@ -1,0 +1,628 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+--
+-- Name: uuid-ossp; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION "uuid-ossp"; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION "uuid-ossp" IS 'generate universally unique identifiers (UUIDs)';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: active_admin_comments; Type: TABLE; Schema: public; Owner: mxd; Tablespace: 
+--
+
+CREATE TABLE active_admin_comments (
+    id integer NOT NULL,
+    namespace character varying(255),
+    body text,
+    resource_id character varying(255) NOT NULL,
+    resource_type character varying(255) NOT NULL,
+    author_id integer,
+    author_type character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.active_admin_comments OWNER TO mxd;
+
+--
+-- Name: active_admin_comments_id_seq; Type: SEQUENCE; Schema: public; Owner: mxd
+--
+
+CREATE SEQUENCE active_admin_comments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.active_admin_comments_id_seq OWNER TO mxd;
+
+--
+-- Name: active_admin_comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: mxd
+--
+
+ALTER SEQUENCE active_admin_comments_id_seq OWNED BY active_admin_comments.id;
+
+
+--
+-- Name: admin_users; Type: TABLE; Schema: public; Owner: mxd; Tablespace: 
+--
+
+CREATE TABLE admin_users (
+    id integer NOT NULL,
+    email character varying(255) DEFAULT ''::character varying NOT NULL,
+    encrypted_password character varying(255) DEFAULT ''::character varying NOT NULL,
+    reset_password_token character varying(255),
+    reset_password_sent_at timestamp without time zone,
+    remember_created_at timestamp without time zone,
+    sign_in_count integer DEFAULT 0 NOT NULL,
+    current_sign_in_at timestamp without time zone,
+    last_sign_in_at timestamp without time zone,
+    current_sign_in_ip character varying(255),
+    last_sign_in_ip character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.admin_users OWNER TO mxd;
+
+--
+-- Name: admin_users_id_seq; Type: SEQUENCE; Schema: public; Owner: mxd
+--
+
+CREATE SEQUENCE admin_users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.admin_users_id_seq OWNER TO mxd;
+
+--
+-- Name: admin_users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: mxd
+--
+
+ALTER SEQUENCE admin_users_id_seq OWNED BY admin_users.id;
+
+
+--
+-- Name: orders; Type: TABLE; Schema: public; Owner: mxd; Tablespace: 
+--
+
+CREATE TABLE orders (
+    id uuid DEFAULT uuid_generate_v4() NOT NULL,
+    tracking character varying(255),
+    description text,
+    status character varying(255),
+    value numeric,
+    fee numeric,
+    user_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.orders OWNER TO mxd;
+
+--
+-- Name: sales; Type: TABLE; Schema: public; Owner: mxd; Tablespace: 
+--
+
+CREATE TABLE sales (
+    id integer NOT NULL,
+    email character varying(255),
+    guid character varying(255),
+    order_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    state character varying(255),
+    stripe_id character varying(255),
+    stripe_token character varying(255),
+    card_expiration date,
+    error text,
+    amount numeric(9,2)
+);
+
+
+ALTER TABLE public.sales OWNER TO mxd;
+
+--
+-- Name: sales_id_seq; Type: SEQUENCE; Schema: public; Owner: mxd
+--
+
+CREATE SEQUENCE sales_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.sales_id_seq OWNER TO mxd;
+
+--
+-- Name: sales_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: mxd
+--
+
+ALTER SEQUENCE sales_id_seq OWNED BY sales.id;
+
+
+--
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: mxd; Tablespace: 
+--
+
+CREATE TABLE schema_migrations (
+    version character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.schema_migrations OWNER TO mxd;
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: mxd; Tablespace: 
+--
+
+CREATE TABLE users (
+    id integer NOT NULL,
+    email character varying(255) DEFAULT ''::character varying NOT NULL,
+    encrypted_password character varying(255) DEFAULT ''::character varying NOT NULL,
+    reset_password_token character varying(255),
+    reset_password_sent_at timestamp without time zone,
+    remember_created_at timestamp without time zone,
+    sign_in_count integer DEFAULT 0 NOT NULL,
+    current_sign_in_at timestamp without time zone,
+    last_sign_in_at timestamp without time zone,
+    current_sign_in_ip character varying(255),
+    last_sign_in_ip character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    username character varying(255),
+    unique_address character varying(255),
+    mobile character varying(255),
+    pp_id character varying(255),
+    address text,
+    firstname character varying(255),
+    lastname character varying(255)
+);
+
+
+ALTER TABLE public.users OWNER TO mxd;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: mxd
+--
+
+CREATE SEQUENCE users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_id_seq OWNER TO mxd;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: mxd
+--
+
+ALTER SEQUENCE users_id_seq OWNED BY users.id;
+
+
+--
+-- Name: versions; Type: TABLE; Schema: public; Owner: mxd; Tablespace: 
+--
+
+CREATE TABLE versions (
+    id integer NOT NULL,
+    item_type character varying(255) NOT NULL,
+    item_id integer NOT NULL,
+    event character varying(255) NOT NULL,
+    whodunnit character varying(255),
+    object text,
+    created_at timestamp without time zone,
+    object_changes text
+);
+
+
+ALTER TABLE public.versions OWNER TO mxd;
+
+--
+-- Name: versions_id_seq; Type: SEQUENCE; Schema: public; Owner: mxd
+--
+
+CREATE SEQUENCE versions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.versions_id_seq OWNER TO mxd;
+
+--
+-- Name: versions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: mxd
+--
+
+ALTER SEQUENCE versions_id_seq OWNED BY versions.id;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: mxd
+--
+
+ALTER TABLE ONLY active_admin_comments ALTER COLUMN id SET DEFAULT nextval('active_admin_comments_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: mxd
+--
+
+ALTER TABLE ONLY admin_users ALTER COLUMN id SET DEFAULT nextval('admin_users_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: mxd
+--
+
+ALTER TABLE ONLY sales ALTER COLUMN id SET DEFAULT nextval('sales_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: mxd
+--
+
+ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: mxd
+--
+
+ALTER TABLE ONLY versions ALTER COLUMN id SET DEFAULT nextval('versions_id_seq'::regclass);
+
+
+--
+-- Data for Name: active_admin_comments; Type: TABLE DATA; Schema: public; Owner: mxd
+--
+
+COPY active_admin_comments (id, namespace, body, resource_id, resource_type, author_id, author_type, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: active_admin_comments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mxd
+--
+
+SELECT pg_catalog.setval('active_admin_comments_id_seq', 1, false);
+
+
+--
+-- Data for Name: admin_users; Type: TABLE DATA; Schema: public; Owner: mxd
+--
+
+COPY admin_users (id, email, encrypted_password, reset_password_token, reset_password_sent_at, remember_created_at, sign_in_count, current_sign_in_at, last_sign_in_at, current_sign_in_ip, last_sign_in_ip, created_at, updated_at) FROM stdin;
+1	admin@example.com	$2a$10$kXHwoyyKh2K5fvgyJXJk3.X2FGiwHC.RTp7sLPkwW3nlSDTYcM56u	\N	\N	\N	2	2014-05-22 00:32:38.732313	2014-05-18 19:21:11.582282	127.0.0.1	127.0.0.1	2014-05-18 19:07:52.896935	2014-05-22 00:32:38.733144
+\.
+
+
+--
+-- Name: admin_users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mxd
+--
+
+SELECT pg_catalog.setval('admin_users_id_seq', 1, true);
+
+
+--
+-- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: mxd
+--
+
+COPY orders (id, tracking, description, status, value, fee, user_id, created_at, updated_at) FROM stdin;
+00000000-0000-0000-0000-000000000001	Test order	test order descrip	Pending	43.44	54.0	1	2014-05-13 00:14:58.074214	2014-05-13 00:14:58.074214
+00000000-0000-0000-0000-000000000002	Another order	another order descrip	Arrived	45.0	99.0	1	2014-05-13 00:17:51.910416	2014-05-13 00:17:51.910416
+00000000-0000-0000-0000-000000000004	Third test	testing...	33	44.0	333.0	1	2014-05-13 00:20:12.404483	2014-05-13 00:20:12.404483
+00000000-0000-0000-0000-000000000006	mxd's order	test descrip	fucking here	0.0	444.0	2	2014-05-13 00:38:32.309373	2014-05-13 00:38:32.309373
+00000000-0000-0000-0000-000000000007	1Z602E9A0313514218	Fruit of the Loom Boys 8-20 Assorted Boxer Brief 5-Pack,Multi,XL (18-20) 		9.0	30.0	3	2014-05-18 21:32:46.240156	2014-05-18 21:46:15.232038
+00000000-0000-0000-0000-000000000008	3248237483748383	Kickass J6 earbuds	\N	8.99	\N	3	2014-05-18 22:07:00.530073	2014-05-18 22:07:00.530073
+00000000-0000-0000-0000-000000000009	2389423843983838	Fresh balls		7.88	35.0	3	2014-05-19 04:27:08.468847	2014-05-19 04:28:04.898456
+00000000-0000-0000-0000-000000000010	38203483488383	Furaash iyo isbaramuuto		39.84	3.99	4	2014-05-19 23:18:24.405307	2014-05-19 23:18:55.176849
+073971d3-a241-4a6e-8e62-118628435a08	2834838383838	balls sack	pending	166.78	\N	5	2014-05-22 00:05:50.472482	2014-05-22 00:05:50.472482
+db29e21d-3bd6-47e3-bf9c-81b7880a20b6	48482048848	testing ready (for pickup)	ready	8383.0	\N	5	2014-05-22 00:31:55.44881	2014-05-22 00:33:14.149981
+0ca84760-6c5e-4fea-aef8-dec16b16ecd2	484848430488	testing en_route	en_route	7474777.0	\N	5	2014-05-22 00:31:40.021391	2014-05-22 00:33:42.97474
+7129c5aa-cfcc-4564-bcf3-28132a8e5c8b	4348484848	testing picked_up	picked_up	4949.99	\N	5	2014-05-22 00:32:19.532088	2014-05-22 00:33:49.797001
+b92513fe-836b-46eb-a48d-7e0b28405584	884484848484	testing processing	processing	666.0	\N	5	2014-05-22 00:30:59.70528	2014-05-22 00:33:55.765241
+fea7fe6f-3402-4501-bd3d-927b720a8b6f	4848484		pending	9494.0	\N	5	2014-05-22 01:09:26.419552	2014-05-22 01:09:26.419552
+00e962f0-ccac-4ae3-ac21-e3afeaed0d41	48240824848482	testing for no value	pending	\N	\N	5	2014-05-22 01:12:34.637784	2014-05-22 01:12:34.637784
+\.
+
+
+--
+-- Data for Name: sales; Type: TABLE DATA; Schema: public; Owner: mxd
+--
+
+COPY sales (id, email, guid, order_id, created_at, updated_at, state, stripe_id, stripe_token, card_expiration, error, amount) FROM stdin;
+1	\N	b45f87cc-6c71-43c8-aa86-89d825353ff4	7	2014-05-19 04:14:50.738443	2014-05-19 04:14:50.738443	pending	\N	tok_43poh6Y0DrP1yu	\N	\N	30.00
+2	\N	c71ef351-759c-4825-837c-be6cbeb89d24	7	2014-05-19 04:15:31.066375	2014-05-19 04:15:31.066375	pending	\N	tok_43poh6Y0DrP1yu	\N	\N	30.00
+3	\N	5ee63f0c-b8f1-4e03-aba3-4743ae52b84d	7	2014-05-19 04:15:43.121517	2014-05-19 04:15:43.658484	errored	\N	tok_43poh6Y0DrP1yu	\N	Missing required param: amount	30.00
+4	\N	85302872-7a1b-4f7e-9328-187843d5bd82	9	2014-05-19 23:30:26.819144	2014-05-19 23:30:27.374962	errored	\N	tok_447vlC1mzsLnOJ	\N	Amount must be at least 50 cents	35.00
+5	\N	63252cc7-ff40-46ce-86f4-54cf7e7dc4b0	9	2014-05-19 23:35:05.788731	2014-05-19 23:35:06.237591	errored	\N	tok_448YbQl07CQBwk	\N	Amount must be at least 50 cents	35.00
+\.
+
+
+--
+-- Name: sales_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mxd
+--
+
+SELECT pg_catalog.setval('sales_id_seq', 5, true);
+
+
+--
+-- Data for Name: schema_migrations; Type: TABLE DATA; Schema: public; Owner: mxd
+--
+
+COPY schema_migrations (version) FROM stdin;
+20140508010547
+20140508010557
+20140508010605
+20140508010610
+20140508010613
+20140509003810
+20140508010543
+20140518211010
+20140519034908
+20140519044838
+20140519044839
+20140519232748
+20140521150709
+20140521191130
+20140521204422
+20140521210910
+20140522014310
+\.
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: mxd
+--
+
+COPY users (id, email, encrypted_password, reset_password_token, reset_password_sent_at, remember_created_at, sign_in_count, current_sign_in_at, last_sign_in_at, current_sign_in_ip, last_sign_in_ip, created_at, updated_at, username, unique_address, mobile, pp_id, address, firstname, lastname) FROM stdin;
+1	user@example.com	$2a$10$9ep2BN2A2Rf3sI2THbJ9EOTdKm7CrD9LLY9JmVtYmo8kmFjvrvADa	\N	\N	\N	2	2014-05-13 00:14:25.654532	2014-05-11 02:56:40.35555	127.0.0.1	127.0.0.1	2014-05-11 02:56:40.331706	2014-05-13 00:14:25.656441	user	KE353424	\N	\N	\N	\N	\N
+2	mohomed.abdullahi@gmail.com	$2a$10$0A7KF6i.5zIpyK2in9XtGOjuh.oKI7rr8.7x2WjkTiXGBrBGVKoxK	\N	\N	\N	4	2014-05-13 00:40:22.144547	2014-05-13 00:38:20.918083	127.0.0.1	127.0.0.1	2014-05-13 00:27:05.512026	2014-05-13 00:40:22.145156	mxd	KE19149	\N	\N	\N	\N	\N
+3	mohomed@abdullahi.org	$2a$10$2FgFS4/.SPiDnmnERINy1OPPDw21jTkQJ9dX20A5GDRrKxwg0YhtC	\N	\N	\N	2	2014-05-18 21:01:41.64588	2014-05-17 23:28:50.0172	127.0.0.1	127.0.0.1	2014-05-17 23:28:49.987247	2014-05-18 21:01:41.647529	gnycl	KE660240	\N	\N	\N	\N	\N
+4	nigga@nigga.com	$2a$10$DJyGRYFBf9.lS.CF1G5CxuxIQocsgYJxhcmgtMzkCTJr.WmdRq..G	\N	\N	\N	1	2014-05-19 23:18:07.497832	2014-05-19 23:18:07.497832	127.0.0.1	127.0.0.1	2014-05-19 23:18:07.485193	2014-05-19 23:18:07.499086	nigga	KE989177	\N	\N	\N	\N	\N
+5	tom@myspace.com	$2a$10$YZx9mCk98TrW4OFsXBQFXOnBYQ6GH4D0Nm.jAOxWAu.G12EoYIYeG	\N	\N	\N	1	2014-05-22 00:05:26.519906	2014-05-22 00:05:26.519906	127.0.0.1	127.0.0.1	2014-05-22 00:05:26.487779	2014-05-22 02:10:23.875938	tom	KE907068	507-319-1545	84820428302383	Some spot	Thomas	Myspacius
+\.
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mxd
+--
+
+SELECT pg_catalog.setval('users_id_seq', 5, true);
+
+
+--
+-- Data for Name: versions; Type: TABLE DATA; Schema: public; Owner: mxd
+--
+
+COPY versions (id, item_type, item_id, event, whodunnit, object, created_at, object_changes) FROM stdin;
+1	Order	10	create	4	\N	2014-05-19 23:18:24.527292	--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\ntracking:\n- \n- '38203483488383'\ndescription:\n- \n- Furaash iyo isbaramuuto\nvalue:\n- \n- 39.84\nuser_id:\n- \n- 4\ncreated_at:\n- \n- 2014-05-19 23:18:24.405307000 Z\nupdated_at:\n- \n- 2014-05-19 23:18:24.405307000 Z\nid:\n- \n- 10\n
+2	Order	10	update	3	---\nid: 10\ntracking: '38203483488383'\ndescription: Furaash iyo isbaramuuto\nstatus: \nvalue: 39.84\nfee: \nuser_id: 4\ncreated_at: 2014-05-19 23:18:24.405307000 Z\nupdated_at: 2014-05-19 23:18:24.405307000 Z\n	2014-05-19 23:18:55.181018	--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\nstatus:\n- \n- ''\nfee:\n- \n- 3.99\nupdated_at:\n- 2014-05-19 23:18:24.405307000 Z\n- 2014-05-19 23:18:55.176849000 Z\n
+3	Sale	4	create	3	\N	2014-05-19 23:30:26.837769	--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\namount:\n- \n- 35\nstripe_token:\n- \n- tok_447vlC1mzsLnOJ\norder_id:\n- \n- 9\nstate:\n- \n- pending\ncreated_at:\n- \n- 2014-05-19 23:30:26.819144000 Z\nupdated_at:\n- \n- 2014-05-19 23:30:26.819144000 Z\nguid:\n- \n- 85302872-7a1b-4f7e-9328-187843d5bd82\nid:\n- \n- 4\n
+4	Sale	4	update	3	---\nid: 4\nemail: \nguid: 85302872-7a1b-4f7e-9328-187843d5bd82\norder_id: 9\ncreated_at: 2014-05-19 23:30:26.819144000 Z\nupdated_at: 2014-05-19 23:30:26.819144000 Z\nstate: pending\nstripe_id: \nstripe_token: tok_447vlC1mzsLnOJ\ncard_expiration: \nerror: \namount: 35\n	2014-05-19 23:30:26.847368	--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\nstate:\n- pending\n- processing\nupdated_at:\n- 2014-05-19 23:30:26.819144000 Z\n- 2014-05-19 23:30:26.841915000 Z\n
+5	Sale	4	update	3	---\nid: 4\nemail: \nguid: 85302872-7a1b-4f7e-9328-187843d5bd82\norder_id: 9\ncreated_at: 2014-05-19 23:30:26.819144000 Z\nupdated_at: 2014-05-19 23:30:26.841915000 Z\nstate: processing\nstripe_id: \nstripe_token: tok_447vlC1mzsLnOJ\ncard_expiration: \nerror: \namount: 35\n	2014-05-19 23:30:27.372715	--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\nerror:\n- \n- Amount must be at least 50 cents\nupdated_at:\n- 2014-05-19 23:30:26.841915000 Z\n- 2014-05-19 23:30:27.367695000 Z\n
+6	Sale	4	update	3	---\nid: 4\nemail: \nguid: 85302872-7a1b-4f7e-9328-187843d5bd82\norder_id: 9\ncreated_at: 2014-05-19 23:30:26.819144000 Z\nupdated_at: 2014-05-19 23:30:27.367695000 Z\nstate: processing\nstripe_id: \nstripe_token: tok_447vlC1mzsLnOJ\ncard_expiration: \nerror: Amount must be at least 50 cents\namount: 35\n	2014-05-19 23:30:27.377881	--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\nstate:\n- processing\n- errored\nupdated_at:\n- 2014-05-19 23:30:27.367695000 Z\n- 2014-05-19 23:30:27.374962000 Z\n
+7	Sale	5	create	3	\N	2014-05-19 23:35:05.791839	--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\namount:\n- \n- 35\nstripe_token:\n- \n- tok_448YbQl07CQBwk\norder_id:\n- \n- 9\nstate:\n- \n- pending\ncreated_at:\n- \n- 2014-05-19 23:35:05.788731000 Z\nupdated_at:\n- \n- 2014-05-19 23:35:05.788731000 Z\nguid:\n- \n- 63252cc7-ff40-46ce-86f4-54cf7e7dc4b0\nid:\n- \n- 5\n
+8	Sale	5	update	3	---\nid: 5\nemail: \nguid: 63252cc7-ff40-46ce-86f4-54cf7e7dc4b0\norder_id: 9\ncreated_at: 2014-05-19 23:35:05.788731000 Z\nupdated_at: 2014-05-19 23:35:05.788731000 Z\nstate: pending\nstripe_id: \nstripe_token: tok_448YbQl07CQBwk\ncard_expiration: \nerror: \namount: 35\n	2014-05-19 23:35:05.797666	--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\nstate:\n- pending\n- processing\nupdated_at:\n- 2014-05-19 23:35:05.788731000 Z\n- 2014-05-19 23:35:05.794706000 Z\n
+9	Sale	5	update	3	---\nid: 5\nemail: \nguid: 63252cc7-ff40-46ce-86f4-54cf7e7dc4b0\norder_id: 9\ncreated_at: 2014-05-19 23:35:05.788731000 Z\nupdated_at: 2014-05-19 23:35:05.794706000 Z\nstate: processing\nstripe_id: \nstripe_token: tok_448YbQl07CQBwk\ncard_expiration: \nerror: \namount: 35\n	2014-05-19 23:35:06.235936	--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\nerror:\n- \n- Amount must be at least 50 cents\nupdated_at:\n- 2014-05-19 23:35:05.794706000 Z\n- 2014-05-19 23:35:06.229718000 Z\n
+10	Sale	5	update	3	---\nid: 5\nemail: \nguid: 63252cc7-ff40-46ce-86f4-54cf7e7dc4b0\norder_id: 9\ncreated_at: 2014-05-19 23:35:05.788731000 Z\nupdated_at: 2014-05-19 23:35:06.229718000 Z\nstate: processing\nstripe_id: \nstripe_token: tok_448YbQl07CQBwk\ncard_expiration: \nerror: Amount must be at least 50 cents\namount: 35\n	2014-05-19 23:35:06.240614	--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\nstate:\n- processing\n- errored\nupdated_at:\n- 2014-05-19 23:35:06.229718000 Z\n- 2014-05-19 23:35:06.237591000 Z\n
+11	Order	73971	create	5	\N	2014-05-22 00:05:50.515226	--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\ntracking:\n- \n- '2834838383838'\ndescription:\n- \n- balls sack\nvalue:\n- \n- 166.78\nuser_id:\n- \n- 5\nstatus:\n- \n- pending\ncreated_at:\n- \n- 2014-05-22 00:05:50.472482000 Z\nupdated_at:\n- \n- 2014-05-22 00:05:50.472482000 Z\nid:\n- \n- 073971d3-a241-4a6e-8e62-118628435a08\n
+12	Order	0	create	5	\N	2014-05-22 00:30:59.767689	--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\ntracking:\n- \n- '884484848484'\ndescription:\n- \n- testing processing\nvalue:\n- \n- 666.0\nuser_id:\n- \n- 5\nstatus:\n- \n- pending\ncreated_at:\n- \n- 2014-05-22 00:30:59.705280000 Z\nupdated_at:\n- \n- 2014-05-22 00:30:59.705280000 Z\nid:\n- \n- b92513fe-836b-46eb-a48d-7e0b28405584\n
+13	Order	0	create	5	\N	2014-05-22 00:31:40.024281	--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\ntracking:\n- \n- '484848430488'\ndescription:\n- \n- testing en_route\nvalue:\n- \n- 7474777.0\nuser_id:\n- \n- 5\nstatus:\n- \n- pending\ncreated_at:\n- \n- 2014-05-22 00:31:40.021391000 Z\nupdated_at:\n- \n- 2014-05-22 00:31:40.021391000 Z\nid:\n- \n- 0ca84760-6c5e-4fea-aef8-dec16b16ecd2\n
+14	Order	0	create	5	\N	2014-05-22 00:31:55.455055	--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\ntracking:\n- \n- '48482048848'\ndescription:\n- \n- testing ready (for pickup)\nvalue:\n- \n- 8383.0\nuser_id:\n- \n- 5\nstatus:\n- \n- pending\ncreated_at:\n- \n- 2014-05-22 00:31:55.448810000 Z\nupdated_at:\n- \n- 2014-05-22 00:31:55.448810000 Z\nid:\n- \n- db29e21d-3bd6-47e3-bf9c-81b7880a20b6\n
+15	Order	7129	create	5	\N	2014-05-22 00:32:19.540792	--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\ntracking:\n- \n- '4348484848'\ndescription:\n- \n- testing picked_up\nvalue:\n- \n- 4949.99\nuser_id:\n- \n- 5\nstatus:\n- \n- pending\ncreated_at:\n- \n- 2014-05-22 00:32:19.532088000 Z\nupdated_at:\n- \n- 2014-05-22 00:32:19.532088000 Z\nid:\n- \n- 7129c5aa-cfcc-4564-bcf3-28132a8e5c8b\n
+16	Order	0	update	5	---\nid: db29e21d-3bd6-47e3-bf9c-81b7880a20b6\ntracking: '48482048848'\ndescription: testing ready (for pickup)\nstatus: pending\nvalue: 8383.0\nfee: \nuser_id: 5\ncreated_at: 2014-05-22 00:31:55.448810000 Z\nupdated_at: 2014-05-22 00:31:55.448810000 Z\n	2014-05-22 00:33:14.15412	--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\nstatus:\n- pending\n- ready\nupdated_at:\n- 2014-05-22 00:31:55.448810000 Z\n- 2014-05-22 00:33:14.149981000 Z\n
+17	Order	0	update	5	---\nid: 0ca84760-6c5e-4fea-aef8-dec16b16ecd2\ntracking: '484848430488'\ndescription: testing en_route\nstatus: pending\nvalue: 7474777.0\nfee: \nuser_id: 5\ncreated_at: 2014-05-22 00:31:40.021391000 Z\nupdated_at: 2014-05-22 00:31:40.021391000 Z\n	2014-05-22 00:33:42.978341	--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\nstatus:\n- pending\n- en_route\nupdated_at:\n- 2014-05-22 00:31:40.021391000 Z\n- 2014-05-22 00:33:42.974740000 Z\n
+18	Order	7129	update	5	---\nid: 7129c5aa-cfcc-4564-bcf3-28132a8e5c8b\ntracking: '4348484848'\ndescription: testing picked_up\nstatus: pending\nvalue: 4949.99\nfee: \nuser_id: 5\ncreated_at: 2014-05-22 00:32:19.532088000 Z\nupdated_at: 2014-05-22 00:32:19.532088000 Z\n	2014-05-22 00:33:49.800566	--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\nstatus:\n- pending\n- picked_up\nupdated_at:\n- 2014-05-22 00:32:19.532088000 Z\n- 2014-05-22 00:33:49.797001000 Z\n
+19	Order	0	update	5	---\nid: b92513fe-836b-46eb-a48d-7e0b28405584\ntracking: '884484848484'\ndescription: testing processing\nstatus: pending\nvalue: 666.0\nfee: \nuser_id: 5\ncreated_at: 2014-05-22 00:30:59.705280000 Z\nupdated_at: 2014-05-22 00:30:59.705280000 Z\n	2014-05-22 00:33:55.769123	--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\nstatus:\n- pending\n- processing\nupdated_at:\n- 2014-05-22 00:30:59.705280000 Z\n- 2014-05-22 00:33:55.765241000 Z\n
+20	Order	0	create	5	\N	2014-05-22 01:09:26.462652	--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\ntracking:\n- \n- '4848484'\ndescription:\n- \n- ''\nvalue:\n- \n- 9494.0\nuser_id:\n- \n- 5\nstatus:\n- \n- pending\ncreated_at:\n- \n- 2014-05-22 01:09:26.419552000 Z\nupdated_at:\n- \n- 2014-05-22 01:09:26.419552000 Z\nid:\n- \n- fea7fe6f-3402-4501-bd3d-927b720a8b6f\n
+21	Order	0	create	5	\N	2014-05-22 01:12:34.646152	--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess\ntracking:\n- \n- '48240824848482'\ndescription:\n- \n- testing for no value\nuser_id:\n- \n- 5\nstatus:\n- \n- pending\ncreated_at:\n- \n- 2014-05-22 01:12:34.637784000 Z\nupdated_at:\n- \n- 2014-05-22 01:12:34.637784000 Z\nid:\n- \n- 00e962f0-ccac-4ae3-ac21-e3afeaed0d41\n
+\.
+
+
+--
+-- Name: versions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mxd
+--
+
+SELECT pg_catalog.setval('versions_id_seq', 21, true);
+
+
+--
+-- Name: active_admin_comments_pkey; Type: CONSTRAINT; Schema: public; Owner: mxd; Tablespace: 
+--
+
+ALTER TABLE ONLY active_admin_comments
+    ADD CONSTRAINT active_admin_comments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admin_users_pkey; Type: CONSTRAINT; Schema: public; Owner: mxd; Tablespace: 
+--
+
+ALTER TABLE ONLY admin_users
+    ADD CONSTRAINT admin_users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: orders_pkey; Type: CONSTRAINT; Schema: public; Owner: mxd; Tablespace: 
+--
+
+ALTER TABLE ONLY orders
+    ADD CONSTRAINT orders_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sales_pkey; Type: CONSTRAINT; Schema: public; Owner: mxd; Tablespace: 
+--
+
+ALTER TABLE ONLY sales
+    ADD CONSTRAINT sales_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: mxd; Tablespace: 
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: versions_pkey; Type: CONSTRAINT; Schema: public; Owner: mxd; Tablespace: 
+--
+
+ALTER TABLE ONLY versions
+    ADD CONSTRAINT versions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_active_admin_comments_on_author_type_and_author_id; Type: INDEX; Schema: public; Owner: mxd; Tablespace: 
+--
+
+CREATE INDEX index_active_admin_comments_on_author_type_and_author_id ON active_admin_comments USING btree (author_type, author_id);
+
+
+--
+-- Name: index_active_admin_comments_on_namespace; Type: INDEX; Schema: public; Owner: mxd; Tablespace: 
+--
+
+CREATE INDEX index_active_admin_comments_on_namespace ON active_admin_comments USING btree (namespace);
+
+
+--
+-- Name: index_active_admin_comments_on_resource_type_and_resource_id; Type: INDEX; Schema: public; Owner: mxd; Tablespace: 
+--
+
+CREATE INDEX index_active_admin_comments_on_resource_type_and_resource_id ON active_admin_comments USING btree (resource_type, resource_id);
+
+
+--
+-- Name: index_admin_users_on_email; Type: INDEX; Schema: public; Owner: mxd; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_admin_users_on_email ON admin_users USING btree (email);
+
+
+--
+-- Name: index_admin_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: mxd; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_admin_users_on_reset_password_token ON admin_users USING btree (reset_password_token);
+
+
+--
+-- Name: index_orders_on_user_id; Type: INDEX; Schema: public; Owner: mxd; Tablespace: 
+--
+
+CREATE INDEX index_orders_on_user_id ON orders USING btree (user_id);
+
+
+--
+-- Name: index_sales_on_order_id; Type: INDEX; Schema: public; Owner: mxd; Tablespace: 
+--
+
+CREATE INDEX index_sales_on_order_id ON sales USING btree (order_id);
+
+
+--
+-- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: mxd; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
+
+
+--
+-- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: mxd; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_users_on_reset_password_token ON users USING btree (reset_password_token);
+
+
+--
+-- Name: index_users_on_username; Type: INDEX; Schema: public; Owner: mxd; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_users_on_username ON users USING btree (username);
+
+
+--
+-- Name: index_versions_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: mxd; Tablespace: 
+--
+
+CREATE INDEX index_versions_on_item_type_and_item_id ON versions USING btree (item_type, item_id);
+
+
+--
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: mxd; Tablespace: 
+--
+
+CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: mxd
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM mxd;
+GRANT ALL ON SCHEMA public TO mxd;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+

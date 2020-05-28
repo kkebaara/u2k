@@ -1,0 +1,58 @@
+<%- model_class = Order -%>
+<title>Orders Dashboard | USA2Kenya</title>
+<div class="container">
+  <div class="page-header">
+    <% if current_user.mobile.blank? || current_user.pp_id.blank? || current_user.address.blank? || current_user.firstname.blank? || current_user.lastname.blank? %>
+      <div class="alert alert-warning">
+        <h4><%= glyph 'warning-sign' %> We need you to fill out your personal information!</h4>
+        <p>We're missing some required information from you. Without this, we can't deliver your orders to you yet.<br />
+          <%= link_to "Please take a moment to fill the required personal information in your account.", edit_user_registration_path, :class => 'alert-link' %>
+        </p>
+      </div>
+    <% end %>
+    <div class="row">
+      <div class="col-md-4"> 
+        <%= render partial: "orders/address" %>
+      </div>
+      <div class="col-md-4">
+      </div>
+      <div class="col-md-4">
+        <%= render partial: "orders/key" %>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-md-10">
+        <%= link_to t('.new', :default => t("New Order")),
+          new_order_path,
+          :class => 'btn btn-primary' %>
+        <% if current_user.orders.exists? %>
+        <%= render partial: "orders/order" %>
+      <% else %>
+        <h3>
+          <div class="alert alert-info text-center">
+            <h2>
+            <%= glyph 'home' %>
+            <br />
+            This is your dashboard.</h2>
+          <br />
+          <h4>When you ship packages to your USA2Kenya mailbox, you must input package information here.<br />
+            Please input order <strong>tracking number, description and value.</strong></h4>
+            <%= link_to t('.new', :default => t("Create New Order")),
+              new_order_path,
+              :class => 'btn btn-primary' %>
+        </div>
+        <br />
+      </h1>
+      <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="row"> -->
+  <!--   <div class="col&#45;md&#45;2"> -->
+  <!--     <%= link_to t('.new', :default => t("New Order")), new_order_path, :class => 'btn btn&#45;primary' %> -->
+  <!--   </div> -->
+  <!-- </div> -->
+</div> <!-- container -->
+</div>

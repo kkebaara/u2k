@@ -1,0 +1,11 @@
+    Whoo hoo!, new user signed up at USA2KENYA! Welcome <%= @user.firstname %>+" "+<%= @user.lastname %>!
+    ===================================================
+
+      Alrighty, we got a new customer signed up!
+      Here's their information for reference:
+
+        First Name:             <%= @user.firstname %>
+        Last Name:              <%= @user.lastname %>
+        Email:                  <%= @user.email %><br />
+        Unique U2K Code:        <%= @user.unique_address %>
+        Sign up date & time:    <%= @user.created_at %>

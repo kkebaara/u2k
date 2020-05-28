@@ -1,0 +1,5 @@
+== USA2KENYA 
+
+USA2KENYA aka OrderStuff is a Rails 4 webapp.
+
+See the Gemfile for gems used in prod when deployed to Heroku as well as the ones I use in development.

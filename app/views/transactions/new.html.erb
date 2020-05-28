@@ -1,0 +1,46 @@
+<title>Pay For Order | USA2KENYA</title>
+<div class="page-header">
+  <h1><%=t '.title', :default => "Order ID: "+@order.id %></h1>
+</div>
+
+<div class="fieldset">
+  <dl>
+      <dt class="label label-default">Tracking</dt>
+      <dd><pre class="prettyprint"><%= @order.tracking %></pre></dd>
+      <dt class="label label-default">Description</dt>
+      <dd><pre class="prettyprint"><%= @order.description %></pre></dd>
+      <dt class="label label-default">Status</dt>
+      <dd><pre class="prettyprint"><% if @order.status == "pending" %><button type="button" class="btn btn-danger btn-xs"><%= @order.status.capitalize %></button>
+<% elsif @order.status == "processing" %><button type="button" class="btn btn-warning btn-xs"><%= @order.status.capitalize %></button>
+<% elsif @order.status == "en_route" %><button type="button" class="btn btn-info btn-xs">En Route</button>
+<% elsif @order.status == "ready" %><button type="button" class="btn btn-success btn-xs">Ready For Pickup!</button>
+<% else @order.status == "picked_up" %><button type="button" class="btn btn-default btn-xs">Picked Up</button>
+<% end %></pre></dd>
+      <dt class="label label-default">Value</dt>
+      <dd><pre class="prettyprint"><%= number_to_currency(@order.value) %></pre></dd>
+      <% if @order.fee.nil? %>
+      <% else %>
+      <dt class="label label-default">Fee</dt>
+      <dd><pre class="prettyprint"><%= number_to_currency(@order.fee) %></pre>
+  <%= form_tag buy_path(tracking: @order.tracking) do %>
+    <script src="https://checkout.stripe.com/v2/checkout.js"
+        class="stripe-button"
+        data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+      data-description="<%= @order.description %>"
+      data-amount="<%= (@order.fee * 100).to_int %>"></script>
+  <% end %>
+      </dd>
+    <% end %>
+  </dl>
+</div>
+
+      <% if @error %>
+        <%= @error %>
+      <% end %>
+
+<div class="form-group">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+    orders_path, :class => 'btn btn-default'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+    edit_order_path(@order), :class => 'btn btn-info' %>
+</div>

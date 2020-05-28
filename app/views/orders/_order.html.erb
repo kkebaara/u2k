@@ -1,0 +1,62 @@
+<%- model_class = Order -%>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <!-- <th>ID</th> -->
+      <th> Tracking Number </th>
+      <th><%= model_class.human_attribute_name(:description) %></th>
+      <th><%= model_class.human_attribute_name(:status) %></th>
+      <th><%= model_class.human_attribute_name(:value) %></th>
+      <th><%= model_class.human_attribute_name(:fee) %></th>
+      <th> Date </th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.each do |order| %>
+      <% if order.sales(:state) == "finished" %>
+        <tr class="info">
+        <% elsif order.description.empty? || order.value.blank? %>
+          <tr class="danger">
+          <% else %>
+            <tr>
+            <% end %>
+            <% if current_user && order.user == current_user %>
+              <td><%= order.tracking %></td>
+              <td><%= order.description %></td>
+              <td>
+                <% if order.status == "pending" %>
+                  <button type="button" class="btn btn-danger btn-xs"><%= order.status.capitalize %></button>
+                <% elsif order.status == "processing" %>
+                  <button type="button" class="btn btn-warning btn-xs"><%= order.status.capitalize %></button>
+                <% elsif order.status == "en_route" %>
+                  <button type="button" class="btn btn-info btn-xs">En Route</button>
+                <% elsif order.status == "ready" %>
+                  <button type="button" class="btn btn-success btn-xs">Ready For Pickup!</button>
+                  <% else order.status == "picked_up" %>
+                    <button type="button" class="btn btn-default btn-xs">Picked Up</button>
+                  <% end %>
+                </td>
+                <td><%= number_to_currency(order.value) %></td>
+                <td>
+                  <% if order.fee.nil? %>
+                  <button type="button" class="btn btn-danger btn-xs">Fee Pending</button>
+                  <% else %>
+                    <%= link_to '<i class="fa fa-credit-card"></i> Pay'.html_safe, show_buy_path(order.tracking), :class => 'btn-xs btn-success' %> 
+                    <%= number_to_currency(order.fee) %>
+                  <% end %>
+              </td>
+              <td><%= order.created_at.strftime("%B %d, %Y") %> </td>
+                <td>
+                  <%= link_to order_path(order), :class => 'btn btn-xs', :title => "#{ t('.show', :default => t('helpers.links.show')) }" do %>
+                    <i class="fa fa-inbox"></i> View
+                  <%- end -%>
+                  <%= link_to order_path(order), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure you want to delete this order?')) }, :class => 'btn btn-xs', :title => "#{ t('.destroy', :default => t('helpers.links.destroy')) }" do %>
+                    <i class="fa fa-close"></i> Delete
+                  <%- end -%>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>

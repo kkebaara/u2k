@@ -1,0 +1,31 @@
+<% if current_user.firstname.blank? %>
+  <!-- <div class="alert alert&#45;warning"> -->
+  <!--   <h5> -->
+  <!--     <%= glyph 'warning&#45;sign' %> We need to know what your name is! -->
+  <!--     <p> Without this, we can't deliver your orders to you yet.<br /> -->
+  <!--       <%= link_to "Please set your first and last name.", edit_user_registration_path, :class => 'alert&#45;link' %> -->
+  <!--     </p> -->
+  <!--   </h5> -->
+  <!-- </div> -->
+      <address>
+        <h4 class="bg-primary"><i class="fa fa-anchor"></i> Your Shipping Address</h4>
+        Address 1:     <em class="pull-right">2751 Hennepin Ave S</em><br />
+          Address 2:     <em class="pull-right">Suite 40, <%= current_user.unique_address %></em><br />
+          City, State:   <em class="pull-right">Minneapolis, MN</em><br />
+          Country:       <em class="pull-right">USA</em><br />
+          Zip:    <em class="pull-right">55408</em><br />
+          Tel:    <em class="pull-right">+1 (651) 321-8659</em><br />
+      </address>
+<% else %>
+      <address>
+        <h4 class="bg-primary"><i class="fa fa-anchor"></i> Your Shipping Address</h4>
+        <!-- Name:<strong><em class="pull&#45;right"><%= current_user.firstname+" "+current_user.lastname %></strong></em><br /> -->
+        Name:<strong><em class="pull-right"><%= "USA2KENYA "+current_user.firstname %></strong></em><br />
+        Address 1:     <em class="pull-right">2751 Hennepin Ave S</em><br />
+        Address 2:     <em class="pull-right">Suite 40, <%= current_user.unique_address %></em><br />
+        City, State:   <em class="pull-right">Minneapolis, MN</em><br />
+        Country:       <em class="pull-right">USA</em><br />
+        Zip:    <em class="pull-right">55408</em><br />
+        Tel:    <em class="pull-right">+1 (651) 321-8659</em><br />
+      </address>
+<% end %>

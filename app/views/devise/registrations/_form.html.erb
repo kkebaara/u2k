@@ -1,0 +1,104 @@
+<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), :html => { :class => 'form-horizontal form-user', method: :put }) do |f| %>
+  <%= f.error_notification %>
+
+
+  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+    <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+  <% end %>
+
+
+    <div class="form-group">
+      <%= f.label :email, "Email", class: "control-label col-md-4" %>
+      <div class="col-md-8">
+        <%= f.email_field :email, required: true, autofocus: true, :class => "text-field form-control" %>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <%= f.label :password, class: "control-label col-md-4" %>
+      <div class="col-md-8">
+        <%= f.password_field :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", placeholder: 'Password', required: false, class: 'text-field form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :password_confirmation, "Password Confirmation", class: "control-label col-md-4" %>
+      <div class="col-md-8">
+        <%= f.password_field :password_confirmation, placeholder: 'Password again', required: false, class: 'text-field form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :password, "Current Password\n(required for changes) *", class: "control-label col-md-4" %>
+      <div class="col-md-8">
+        <%= f.password_field :current_password, hint: "we need your current password to confirm your changes", placeholder: 'Current Password', required: true, class: 'text-field form-control' %>
+      </div>
+    </div>
+
+    <% if current_user.firstname.blank? || current_user.lastname.blank? || current_user.mobile.blank? || current_user.address.blank? || current_user.pp_id.blank? || current_user.location.blank? %>
+      <div class="alert alert-danger">
+      <% else %>
+        <div class="alert alert-success">
+        <% end %>
+    <div class="input-group">
+      <%= f.label :location, "Prefered Pickup Location", class: "control-label col-md-4" %>
+      <div class="col-md-8">
+        <%= f.collection_radio_buttons :location, [[ 'South C', 'South C' ] ,[ 'Karen', 'Karen' ]], :first, :last %>
+        <br />
+        <%= link_to '(USA2KENYA pickup locations)', page_path('contact')  %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :mobile, "Mobile", class: "control-label col-md-4" %>
+      <div class="col-md-8">
+        <%= f.text_field :mobile, placeholder: 'Mobile', required: false, class: 'text-field form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :address, "Address", class: "control-label col-md-4" %>
+      <div class="col-md-8">
+        <%= f.text_area :address, placeholder: 'Address/description', required: false, class: 'text-field form-control' %>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <%= f.label :pp_id, "Passport/ID", class: "control-label col-md-4" %>
+      <div class="col-md-8">
+        <%= f.text_field :pp_id, placeholder: 'Passport/Government ID', label: "Passport/ID", required: false, class: 'text-field form-control' %>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <%= f.label :firstname, "First Name", class: "control-label col-md-4" %>
+      <div class="col-md-8">
+        <%= f.text_field :firstname, label: "First Name", required: false, class: 'text-field form-control' %>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <%= f.label :lastname, "Last Name", class: "control-label col-md-4" %>
+      <div class="col-md-8">
+        <%= f.text_field :lastname, label: "Last Name", required: false, class: 'text-field form-control' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions pull-right">
+    <%= f.button :submit,  "Update Account", :class => 'btn btn-info' %>
+  </div>
+
+
+
+<% end %>
+<!--  -->
+<!-- <h3>Cancel account</h3> -->
+<!--  -->
+<!-- <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :class => 'btn btn-info', data: { confirm: "Are you sure?" }, method: :delete %></p> -->
+<!--  -->
+<!-- <%= link_to "Back", :back %> -->

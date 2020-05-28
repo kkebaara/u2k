@@ -1,0 +1,42 @@
+    New order at USA2KENYA! Thank <%= @order.user.firstname %> <%= @order.user.lastname %>!
+
+    ==================================================
+
+
+      Alrighty, we got a new order!
+
+
+        <% if @order.user.mobile.blank? || @order.user.pp_id.blank? || @order.user.address.blank? || @order.user.firstname.blank? || @order.user.lastname.blank? %>
+          Has User Completed Personal Information? NO
+        <% else %>
+          Has User Completed Personal Information? YES
+        <% end %>
+
+
+        First Name:             <%= @order.user.firstname %>
+        Last Name:              <%= @order.user.lastname %>
+        Email:                  <%= @order.user.email %>
+        Unique U2K Code:        <%= @order.user.unique_address %>
+        Sign up date & time:    <%= @order.user.created_at %>
+        IP address mapped:      <%= @order.user.current_sign_in_ip%> | http://www.geoiptool.com/en/?IP=<%= @order.user.current_sign_in_ip%>
+
+    ==================================================
+
+      Here's the order information:
+
+
+        Order ID:               <%= @order.id %>
+        Order Tracking #:       <%= @order.tracking %>
+        Order Description:      <%= @order.description %>
+        Order Value:            <%= @order.value %>
+        Created At:             <%= @order.created_at %>
+
+    ==================================================
+
+      Here's their personal information for reference:
+
+
+        User Mobile:            <%= @order.user.mobile %>
+        User Passport/Govt ID   <%= @order.user.pp_id %>
+        User Address            <%= @order.user.address %>
+        Pickup location:        <%= @order.user.location %>
